@@ -3,7 +3,6 @@
 #include <vector>
 #include <random>
 #include <iomanip>
-
 #include "student.cpp"
 
 
@@ -16,8 +15,19 @@ int randomNumber(int len)
     return distribution(generator);
 }
 
+void print(std::vector<Student> &obj){
+
+    int l = 1;
+    for (auto& student : obj) {
+        std::cout << std::right << std::setw(2) << l++ << ". "
+                  << std::left << std::setw(20) << student.surname
+                  << std::left << std::setw(15) << student.name
+                  << std::right << std::setw(5) << student.album
+                  << std::right << std::setw(10) << std::fixed << std::setprecision(2) << student.average << "\n";
+    }
+}
+
 int main() {
-    int l;
 
     std::vector<std::string> names{"Adam", "Tomasz", "Piotr", "Marcin", "Jakub", "Grzegorz", "Michal", "Krzysztof", "Robert", "Wojciech", "Mariusz"};
     std::vector<std::string> surnames{"Pudzianowski", "Wlodarczyk", "Kowalczyk", "Zyla", "Malysz", "Lewandowski", "Blaszczykowski", "Kubica", "Wozniak", "Nowak"};
@@ -30,6 +40,7 @@ int main() {
         }
 
 
+    std::cout << "\n[Sortowanie alfabetyczne]\n";
     std::sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
         if(a.surname == b.surname)
         {
@@ -39,41 +50,20 @@ int main() {
         }
         return a.surname < b.surname;
     });
+    print(students);
 
-    std::cout << "\n[Sortowanie alfabetyczne]\n"; l = 1;
-    for (auto& student : students) {
-        std::cout << std::right << std::setw(2) << l++ << ". "
-                  << std::left << std::setw(20) << student.surname
-                  << std::left << std::setw(15) << student.name
-                  << std::right << std::setw(5) << student.album
-                  << std::right << std::setw(10) << std::fixed << std::setprecision(2) << student.average << "\n";
-    }
-
+    std::cout << "\n[Sortowanie wg numeru albumu]\n";
     std::sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
         return a.album < b.album;
     });
+    print(students);
 
-    std::cout << "\n[Sortowanie wg numeru albumu]\n"; l =1;
-    for (auto& student : students) {
-        std::cout << std::right << std::setw(2) << l++ << ". "
-                  << std::left << std::setw(20) << student.surname
-                  << std::left << std::setw(15) << student.name
-                  << std::right << std::setw(5) << student.album
-                  << std::right << std::setw(10) << std::fixed << std::setprecision(2) << student.average << "\n";
-    }
-
+    std::cout << "\n[Sortowanie wg średniej]\n";
     std::sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
         if(a.average == b.average)
             return a.album < b.album;
         return a.average > b.average;
     });
+    print(students);
 
-    std::cout << "\n[Sortowanie wg średniej]\n"; l = 1;
-    for (auto& student : students) {
-        std::cout << std::right << std::setw(2) << l++ << ". "
-        << std::left << std::setw(20) << student.surname
-        << std::left << std::setw(15) << student.name
-        << std::right << std::setw(5) << student.album
-        << std::right << std::setw(10) << std::fixed << std::setprecision(2) << student.average << "\n";
-    }
 }
